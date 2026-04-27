@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Renee Zhang — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1814;
+    --ink-soft: #5a5650;
+    --ink-faint: #9a9590;
+    --paper: #f7f4ef;
+    --paper-warm: #ede9e2;
+    --accent: #b85c38;
+    --accent-soft: #d4896a;
+    --line: rgba(26,24,20,0.12);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(247,244,239,0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--line);
+  }
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 2.5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--serif);
+    font-size: clamp(120px, 22vw, 280px);
+    font-weight: 300;
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 0.5px rgba(26,24,20,0.07);
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -0.03em;
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .hero-name {
+    font-size: clamp(52px, 9vw, 110px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.8rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .hero-desc {
+    max-width: 520px;
+    font-size: 17px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+  .hero-desc strong { color: var(--ink); font-weight: 400; }
+  .hero-scroll {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 0.5px;
+    background: var(--ink-faint);
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 2.5rem; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    letter-spacing: -0.01em;
+  }
+  .divider {
+    width: 100%;
+    height: 0.5px;
+    background: var(--line);
+    margin: 0;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--paper-warm); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    max-width: 900px;
+  }
+  .about-body { font-size: 17px; color: var(--ink-soft); line-height: 1.85; }
+  .about-body p + p { margin-top: 1.2rem; }
+  .about-body strong { color: var(--ink); font-weight: 400; }
+  .about-aside { padding-top: 0.4rem; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    border: 0.5px solid var(--line);
+    padding: 0.3rem 0.75rem;
+    text-transform: uppercase;
+  }
+  .aside-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .aside-label:first-child { margin-top: 0; }
+
+  /* ── WORK ── */
+  #work { background: var(--paper); }
+  .work-item { margin-bottom: 5rem; }
+  .work-item:last-child { margin-bottom: 0; }
+  .work-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .work-index {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+  }
+  .work-title {
+    font-size: clamp(22px, 3.5vw, 36px);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .work-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .work-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: var(--paper-warm);
+    border: 0.5px solid var(--line);
+  }
+  .video-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .pdf-wrap {
+    width: 100%;
+    border: 0.5px solid var(--line);
+    background: var(--paper-warm);
+  }
+  .pdf-wrap iframe {
+    width: 100%;
+    height: 480px;
+    border: none;
+    display: block;
+  }
+  .pdf-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    padding: 0.5rem 0.8rem;
+    border-top: 0.5px solid var(--line);
+  }
+  .work-desc { font-size: 16px; color: var(--ink-soft); line-height: 1.8; }
+  .work-desc p + p { margin-top: 1rem; }
+  .work-desc strong { color: var(--ink); font-weight: 400; }
+  .ux-note {
+    margin-top: 1.5rem;
+    padding: 1rem 1.2rem;
+    border-left: 1.5px solid var(--accent-soft);
+    background: rgba(184,92,56,0.04);
+  }
+  .ux-note-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .ux-note p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+  /* ── CASE STUDY ── */
+  #casestudy { background: var(--paper-warm); }
+  .cs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    background: var(--line);
+    border: 0.5px solid var(--line);
+    margin-top: 3rem;
+  }
+  .cs-cell {
+    background: var(--paper-warm);
+    padding: 2rem 1.8rem;
+  }
+  .cs-cell-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .cs-cell-title {
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+  .cs-cell p { font-size: 14px; color: var(--ink-soft); line-height: 1.75; }
+  .cs-cell ul { padding-left: 1rem; }
+  .cs-cell ul li { font-size: 14px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 0.2rem; }
+  .cs-full {
+    grid-column: 1 / -1;
+    background: var(--paper-warm);
+    padding: 2rem 1.8rem;
+    border-top: 0.5px solid var(--line);
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--ink); color: var(--paper); padding: 5rem 2.5rem; }
+  #contact .section-label { color: var(--accent-soft); }
+  #contact .section-title { color: var(--paper); margin-bottom: 2rem; }
+  .contact-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .contact-link {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(247,244,239,0.6);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 0.5px solid rgba(247,244,239,0.2);
+    padding-bottom: 0.2rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .contact-link:hover { color: var(--paper); border-color: var(--accent-soft); }
+  .contact-note {
+    margin-top: 3rem;
+    font-size: 13px;
+    color: rgba(247,244,239,0.35);
+    font-family: var(--mono);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 4rem 1.2rem; }
+    #hero { padding: 0 1.2rem 4rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .work-body { grid-template-columns: 1fr; }
+    .cs-grid { grid-template-columns: 1fr; }
+    .cs-full { grid-column: 1; }
+  }
+
+  /* ── ICONS ── */
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+  .icon svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+  .icon-lg svg { width: 16px; height: 16px; }
+  .work-meta-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .work-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    border: 0.5px solid var(--line);
+    padding: 0.25rem 0.6rem;
+    text-transform: uppercase;
+  }
+  .work-badge svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+  .work-badge.yt { color: var(--accent); border-color: var(--accent-soft); }
+  .social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+  .social-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .social-icon svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+  .social-icon:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Renee Zhang</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#casestudy">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">imagine</div>
+  <div class="hero-tag">Animation · Visual Design · UX Thinking</div>
+  <h1 class="hero-name">Renee<br><em>Zhang</em></h1>
+  <p style="font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:1.8rem;margin-top:-1.2rem;">Jiaying Zhang</p>
+  <p class="hero-desc">
+    I started with animation — telling stories frame by frame, decision by decision. Now I'm drawn to how those same instincts — <strong>clarity, pacing, and emotion</strong> — can shape the way people experience designed things.
+  </p>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div>
+      <h2 class="section-title">Animation graduate<br><em>turning toward UX</em></h2>
+      <div class="about-body">
+        <p>
+          I studied animation, where every visual choice had to earn its place — colour, timing, composition all in service of how someone <em>feels</em> watching it.
+        </p>
+        <p>
+          More recently, I directed a short film with a team of five: writing the script, building the production framework, coordinating sound, and keeping five people moving toward the same vision.
+        </p>
+        <p>
+          That experience taught me that good design — whether it's a storyboard or a user flow — starts with understanding what someone needs to experience, and working backwards from there.
+        </p>
+      </div>
+    </div>
+    <div class="about-aside fade-up">
+      <div class="aside-label">Background</div>
+      <div class="tag-list">
+        <span class="tag">Animation</span>
+        <span class="tag">Visual Storytelling</span>
+        <span class="tag">Direction</span>
+        <span class="tag">Production</span>
+        <span class="tag">Storyboarding</span>
+        <span class="tag">Mixed Media</span>
+      </div>
+      <div class="aside-label">Currently learning</div>
+      <div class="tag-list">
+        <span class="tag">UX Research</span>
+        <span class="tag">Information Architecture</span>
+        <span class="tag">HTML / CSS / JS</span>
+        <span class="tag">User Empathy</span>
+      </div>
+      <div class="aside-label">Tools</div>
+      <div class="tag-list">
+        <span class="tag">After Effects</span>
+        <span class="tag">Blender</span>
+        <span class="tag">Photoshop</span>
+        <span class="tag">Discord</span>
+        <span class="tag">Spreadsheets</span>
+      </div>
+      <div class="aside-label">Find me</div>
+      <div class="social-icons">
+        <a class="social-icon" href="mailto:renee_suis@outlook.com">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+        <a class="social-icon" href="https://www.instagram.com/reneeeeeee3" target="_blank">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Projects</h2>
+
+  <!-- Work 01 -->
+  <div class="work-item fade-up">
+    <div class="work-meta">
+      <span class="work-index">01</span>
+      <h3 class="work-title"><em>imagine</em></h3>
+    </div>
+    <div class="work-meta-icons">
+      <span class="work-badge yt">
+        <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        YouTube
+      </span>
+      <span class="work-badge">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        3:04
+      </span>
+      <span class="work-badge">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        5 members
+      </span>
+    </div>
+    <div class="work-role">Director · Scriptwriter · Producer · Animator</div>
+    <div class="work-body">
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/HJWVGS6fEn0?si=7QdQg0AqzgHlDMgB"
+          title="imagine — short animation"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div>
+        <div class="work-desc">
+          <p>
+            A story about two dots questioning who they are — shifting between identity, perspective, and the quiet weight of small things — until they discover they are the dots above the two i's in the word <em>imagine</em>.
+          </p>
+          <p>
+            I came up with the concept and wrote the script, but the bigger challenge was figuring out how five people could make something together without losing coherence. My solution was an anijam structure — one person, one medium — so each collaborator could work in their strongest form. I built the storyboard and animatic first, giving the team a shared skeleton to work from, then stepped back to let each part breathe.
+          </p>
+        </div>
+        <div class="ux-note">
+          <div class="ux-note-label">UX Thinking</div>
+          <p>
+            Making this film taught me that the hardest part of any collaborative project isn't the craft — it's alignment. Before anyone picks up a camera or opens a software, everyone needs to understand the same goal. It also taught me something about pacing: how to distribute work in a way that's sustainable, and how to recognise when pushing harder stops being productive. Both lessons, I think, matter just as much in design as they do in filmmaking.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Work 02 -->
+  <div class="work-item fade-up">
+    <div class="work-meta">
+      <span class="work-index">02</span>
+      <h3 class="work-title">Healing Rituals</h3>
+    </div>
+    <div class="work-meta-icons">
+      <span class="work-badge yt">
+        <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        YouTube
+      </span>
+      <span class="work-badge">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        0:34
+      </span>
+      <span class="work-badge">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Solo
+      </span>
+    </div>
+    <div class="work-role">Stop-Motion · Sand Animation · Complete end-to-end</div>
+    <div class="work-body">
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/NaKbu-fFv6A?si=HW67zNKM2XBNwrLd"
+          title="Healing Rituals — stop motion animation"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div>
+        <div class="work-desc">
+          <p>
+            A wordless meditation on personal rituals — tea, music, stirring coffee, 
+            boiling water — rendered through sand, powder, pepper, and salt. 
+            This was my first complete stop-motion project, developed independently from script to final frame. 
+            The material choice was intentional: impermanence and texture as metaphor for the fragile, sensory nature of self-care. 
+            No narration. The image carries everything.
+          </p>
+        </div>
+        <div class="ux-note">
+          <div class="ux-note-label">UX Thinking</div>
+          <p>
+            Working without words means every visual choice has to do more work. 
+            The texture of sand, the rhythm of a pour, the pace of a cut — 
+            these aren't decoration, they're the whole language. 
+            What I didn't realise at the time was that this is exactly what good interface design does too: 
+            <strong>guiding people through something without them noticing they're being guided.</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Work 03 -->
+  <div class="work-item fade-up">
+    <div class="work-meta">
+      <span class="work-index">03</span>
+      <h3 class="work-title">Simulation Game Visual Design</h3>
+    </div>
+    <div class="work-role">Solo Project · Visual Design · Character Design · World-building</div>
+    <div class="work-body">
+      <div class="pdf-wrap">
+        <iframe
+          src="https://drive.google.com/file/d/1oNjYKCHHPFV2xwiHxGCsiEVXCmdOnGAG/preview"
+          title="Simulation Game Visual Design — PDF"
+          allow="autoplay"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div>
+        <div class="work-desc">
+          <p>
+            A visual and character design system for an original simulation game concept.
+            The project focused on building a coherent world through
+            <strong>visual language</strong>: colour palette, character archetypes, and
+            environmental tone designed to communicate the game's identity at a glance.
+          </p>
+          <p>
+            Working on a game concept meant constantly thinking about the player's experience
+            <strong>: what story do these visuals tell
+            before a single word of text is read?</strong>
+          </p>
+        </div>
+        <div class="ux-note">
+          <div class="ux-note-label">UX Thinking</div>
+          <p>
+            Game visual systems function as UX systems in disguise. 
+            Colour carries meaning, character design suggests personality,
+            and spatial layout directs attention and flow.
+            This project made me realise I had already been practicing
+            <strong>visual communication
+            design</strong> in a context where meaning is constantly shaped by user perception.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CASE STUDY / PROCESS -->
+<section id="casestudy">
+  <div class="section-label">Design Process</div>
+  <h2 class="section-title">Why this portfolio<br><em>looks the way it does</em></h2>
+  <p style="max-width:560px; font-size:16px; color:var(--ink-soft); line-height:1.8;">
+    Building this site was itself a UX exercise. I treated it as a real design problem:
+    a specific user, a tight time constraint, and a clear goal.
+  </p>
+
+  <div class="cs-grid fade-up">
+    <div class="cs-cell">
+      <div class="cs-cell-num">01 · Problem</div>
+      <div class="cs-cell-title">An audience with no time</div>
+      <p>This portfolio is designed for reviewers who are evaluating many applicants 
+        under tight time constraints. The challenge is not simply to present work, 
+        but to communicate who I am and how I think in a way that can be understood quickly, 
+        often within seconds of scanning.
+    </p>
+    </div>
+    <div class="cs-cell">
+      <div class="cs-cell-num">02 · Target Users</div>
+      <div class="cs-cell-title">Reviewers &amp; admissions staff</div>
+      <p>Not reading in depth, but moving quickly, looking for signals of clarity, 
+        intent, and design thinking rather than exhaustive explanation.
+      </p>
+    </div>
+    <div class="cs-cell">
+      <div class="cs-cell-num">03 · Goals</div>
+      <div class="cs-cell-title">Rapid comprehension of intent</div>
+      <p>The goal of the portfolio is to allow viewers to understand my work and thinking 
+        with minimal cognitive effort. This includes establishing clarity early, 
+        supporting quick visual comprehension of projects, and ensuring that my design 
+        thinking is visible even in a brief scan.
+    </p>
+    </div>
+    <div class="cs-cell">
+      <div class="cs-cell-num">04 · Design Decisions</div>
+      <div class="cs-cell-title">Why these choices?</div>
+      <ul>
+        <li><strong>Single page</strong> — no navigation friction; scroll is universal</li>
+        <li><strong>Serif + mono</strong> — editorial warmth meets technical precision</li>
+        <li><strong>Warm paper tones</strong> — references print; signals craft sensibility</li>
+        <li><strong>UX notes per project</strong> — makes implicit thinking explicit</li>
+      </ul>
+    </div>
+    <div class="cs-full">
+      <div class="cs-cell-num">05 · Reflection</div>
+      <div class="cs-cell-title" style="margin-bottom:0.6rem;">What I would do differently with more time</div>
+      <p style="font-size:14px; color:var(--ink-soft); line-height:1.8; max-width:680px;">
+        User testing — even one round with a classmate acting as "admissions reviewer" — would
+        reveal whether the reading order actually works. I would also add a more detailed
+        breakdown of my production process for <em>imagine</em>, including original storyboard
+        sketches and team coordination documents.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get in touch</div>
+  <h2 class="section-title">Renee Zhang</h2>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:renee_suis@outlook.com">
+      <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5;vertical-align:middle;margin-right:5px;position:relative;top:-1px" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>renee_suis@outlook.com
+    </a>
+    <a class="contact-link" href="https://reneez.format.com" target="_blank">
+      <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5;vertical-align:middle;margin-right:5px;position:relative;top:-1px" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>reneez.format.com
+    </a>
+    <a class="contact-link" href="https://www.instagram.com/reneeeeeee3" target="_blank">
+      <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5;vertical-align:middle;margin-right:5px;position:relative;top:-1px" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram
+    </a>
+  </div>
+  <p class="contact-note" style="margin-top:1rem; color:rgba(247,244,239,0.4); font-size:12px;">
+    Format site contains additional visual &amp; animation work — no UX framing.
+  </p>
+  <p class="contact-note" style="margin-top:2rem;">Jiaying Zhang &nbsp;·&nbsp; Applying to Graduate UX/UI Program &nbsp;·&nbsp; 2026</p>
+</section>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
