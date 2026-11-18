@@ -67,45 +67,68 @@ h2{font-size:clamp(1.7rem,3.5vw,2.3rem);margin-bottom:.6rem}
 .gallery a{grid-column:2}
 .gallery a.tall{grid-column:1;grid-row:1/3}
 .gallery img{display:block;width:100%;height:auto}
-.illustration-gallery {
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+
+/* Illustration: text on top, two images per row */
+.illustration-project{
+  grid-template-columns:1fr;
+  gap:1.5rem;
+}
+
+.illustration-gallery{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:1rem;
+  width:100%;
+  align-items:start;
+}
+
+.illustration-gallery a{
+  display:block;
+  width:100%;
+  grid-column:auto;
+  grid-row:auto;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--surface);
+}
+
+.illustration-gallery img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+/* Character Design: two images per row */
+.character-project{
+  grid-template-columns:1fr;
+  gap:1.5rem;
+}
+
+.character-gallery{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:1rem;
+  width:100%;
+  margin-top:0;
+}
+
+.character-gallery a{
+  display:block;
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--surface);
+}
+
+.character-gallery img{
+  display:block;
+  width:100%;
+  height:auto;
 }
 
 
-.character-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: .75rem;
-  align-items: start;
-}
-
-.character-gallery a {
-  display: block;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--surface);
-}
-
-.character-gallery img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* Tablet and mobile */
-@media (max-width: 760px) {
-  .character-gallery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.illustration-gallery a,
-.illustration-gallery a.tall {
-  grid-column: auto;
-  grid-row: auto;
-}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .more{display:inline-block;margin-top:.3rem}
 .cta{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:2.2rem;display:flex;gap:1.5rem;justify-content:space-between;align-items:center;flex-wrap:wrap}
@@ -139,6 +162,58 @@ footer svg{width:18px;height:18px;fill:currentColor}
   section{padding:3rem 0}
   body{font-size:1.05rem}
 }
+
+/* Cover Design: text on top, three images per row */
+.cover-project{
+  grid-template-columns:1fr;
+  gap:1.5rem;
+}
+
+.cover-gallery{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:1rem;
+  width:100%;
+  align-items:start;
+}
+
+.cover-gallery a{
+  display:block;
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--surface);
+}
+
+.cover-gallery img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+@media (max-width:760px){
+  .cover-gallery{
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
+}
+
+.art-link{
+  margin-top:.8rem;
+  font-size:.9rem;
+  color:var(--muted);
+}
+
+.art-link a{
+  color:var(--accent);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.art-link a:hover{
+  opacity:.7;
+}
+
 </style>
 </head>
 <body>
@@ -163,7 +238,7 @@ footer svg{width:18px;height:18px;fill:currentColor}
     <div class="wrap grid">
       <div>
         <h1>I design for the world as each person experiences it.</h1>
-        <p class="lead">UX researcher and visual designer with an animation background. I look for the limits people work within, then design to remove them, with teams who see the problem differently than I do.</p>
+        <p class="lead">UX designer with an animation background. I look for the limits people work within, then design to remove them, with teams who see the problem differently than I do.</p>
         <div class="btns">
           <a class="btn primary" href="#work">See my UX work</a>
           <a class="btn" href="mailto:renee_suis@outlook.com">Get in touch</a>
@@ -199,9 +274,11 @@ footer svg{width:18px;height:18px;fill:currentColor}
 
   <section style="padding-top:1rem">
     <div class="wrap">
-      <h2 id="work">Selected work</h2>
+      <h2 id="work">Recent work</h2>
       <p class="sub">Two group UX research projects, plus a team film that taught me how to work across roles.</p>
-
+      <p class="art-link">
+  Looking for more artwork? <a href="#animation">Click here</a>.
+</p>
       <article class="project">
         <div>
           <span class="tag">Low-fidelity prototype complete</span><span class="tag">Group project · UX600</span>
@@ -260,7 +337,7 @@ footer svg{width:18px;height:18px;fill:currentColor}
       <div class="about">
         <div>
           <p>Hi, I'm Renee!</p>
-          <p>I'm a UX researcher and visual designer with a background in experimental animation. My journey into UX began with an interest in how people experience and interpret visual information. Through animation, I learned to think about the audience behind every frame. Now, I bring that same curiosity into understanding users, identifying their needs, and making everyday experiences easier to navigate.</p>
+          <p>I'm a UX designer with a background in experimental animation. My journey into UX began with an interest in how people experience and interpret visual information. Through animation, I learned to think about the audience behind every frame. Now, I bring that same curiosity into understanding users, identifying their needs, and making everyday experiences easier to navigate.</p>
           <p>I enjoy exploring problems from different perspectives and working with people from different backgrounds and disciplines. I believe good design starts with understanding the people it serves, rather than making assumptions about what they need.</p>
           <p>With a background that bridges animation and UX, I bring together visual storytelling, research, and creative problem-solving to create thoughtful and accessible experiences.</p>
         </div>
@@ -394,7 +471,7 @@ footer svg{width:18px;height:18px;fill:currentColor}
         <iframe class="media" loading="lazy" title="Healing Rituals, stop-motion short" src="https://www.youtube.com/embed/NaKbu-fFv6A" allowfullscreen></iframe>
       </article>
 
-      <article class="project item" data-cat="game character">
+      <article class="project item" data-cat="game">
         <div>
           <span class="tag">Solo</span>
           <h3>Simulation game visual design</h3>
@@ -406,7 +483,7 @@ footer svg{width:18px;height:18px;fill:currentColor}
       </article>
 
 
-<article class="project item" data-cat="illustration">
+<article class="project item illustration-project" data-cat="illustration">
   <div>
     <span class="tag">Illustration</span>
     <h3>Illustration</h3>
@@ -443,7 +520,7 @@ footer svg{width:18px;height:18px;fill:currentColor}
   </div>
 </article>
     
-<article class="project item" data-cat="character">
+<article class="project item character-project" data-cat="character">
   <div>
     <span class="tag">Character Design</span>
     <span class="tag">Selected works</span>
@@ -498,6 +575,58 @@ footer svg{width:18px;height:18px;fill:currentColor}
       <img src="https://drive.google.com/thumbnail?id=1EF6qedoxOnZe0mZ00o7G_5QZEUhoL8QX&amp;sz=w1200" alt="Character design work 11" loading="lazy">
     </a>
 
+    <a href="https://drive.google.com/file/d/1BQXdGgyL2-LDyS5t-NU-9eqB4ZlX17U_/view" target="_blank" rel="noopener">
+  <img src="https://drive.google.com/thumbnail?id=1BQXdGgyL2-LDyS5t-NU-9eqB4ZlX17U_&amp;sz=w1200" alt="Character design work 12" loading="lazy">
+</a>
+
+<a href="https://drive.google.com/file/d/1nooLAvfu3AwSTkvpuajTwPFpBVUKXVgS/view" target="_blank" rel="noopener">
+  <img src="https://drive.google.com/thumbnail?id=1nooLAvfu3AwSTkvpuajTwPFpBVUKXVgS&amp;sz=w1200" alt="Character design work 13" loading="lazy">
+</a>
+
+<a href="https://drive.google.com/file/d/1j3uWqF1B45zRc2x6TfAsAaCsyxK4uDQI/view" target="_blank" rel="noopener">
+  <img src="https://drive.google.com/thumbnail?id=1j3uWqF1B45zRc2x6TfAsAaCsyxK4uDQI&amp;sz=w1200" alt="Character design work 14" loading="lazy">
+</a>
+
+<a href="https://drive.google.com/file/d/13rJFmxuarJ_RDedKGTPy25_QurFjGSVQ/view" target="_blank" rel="noopener">
+  <img src="https://drive.google.com/thumbnail?id=13rJFmxuarJ_RDedKGTPy25_QurFjGSVQ&amp;sz=w1200" alt="Character design work 15" loading="lazy">
+</a>
+
+<a href="https://drive.google.com/file/d/1wDeGgzdskkXV2OP7le_rREysT_wjFbQa/view" target="_blank" rel="noopener">
+  <img src="https://drive.google.com/thumbnail?id=1wDeGgzdskkXV2OP7le_rREysT_wjFbQa&amp;sz=w1200" alt="Character design work 16" loading="lazy">
+</a>
+
+<a href="https://drive.google.com/file/d/1DIvjKwtFCRyFMf0ULUmWhqv5GvtGxChQ/view" target="_blank" rel="noopener">
+  <img src="https://drive.google.com/thumbnail?id=1DIvjKwtFCRyFMf0ULUmWhqv5GvtGxChQ&amp;sz=w1200" alt="Character design work 17" loading="lazy">
+</a>
+
+<a href="https://drive.google.com/file/d/1nvSKMwohdtEBDHv7MdXJ4Ex5dQWGcmOt/view" target="_blank" rel="noopener">
+  <img src="https://drive.google.com/thumbnail?id=1nvSKMwohdtEBDHv7MdXJ4Ex5dQWGcmOt&amp;sz=w1200" alt="Character design work 18" loading="lazy">
+</a>
+  </div>
+</article>
+<article class="project item cover-project" data-cat="cover">
+  <div>
+    <span class="tag">Cover Design</span>
+    <span class="tag">Selected works</span>
+    <h3>Cover Design</h3>
+    <div class="meta">Cover illustration · Graphic design</div>
+    <p>A selection of cover design works.</p>
+  </div>
+
+  <div class="cover-gallery">
+
+    <a href="https://drive.google.com/file/d/1u7B73_vuPMhrciXIlNktZYKVaRc4ykQi/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1u7B73_vuPMhrciXIlNktZYKVaRc4ykQi&amp;sz=w1200" alt="Cover design work 1" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1BjJZ6YDeJ7qC_f5iLlD4TGZjWOlNAqHv/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1BjJZ6YDeJ7qC_f5iLlD4TGZjWOlNAqHv&amp;sz=w1200" alt="Cover design work 2" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/17ILv63mi1ZgFvxUco8QH2FRIpkpufzSS/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=17ILv63mi1ZgFvxUco8QH2FRIpkpufzSS&amp;sz=w1200" alt="Cover design work 3" loading="lazy">
+    </a>
+
   </div>
 </article>
 
@@ -520,7 +649,7 @@ footer svg{width:18px;height:18px;fill:currentColor}
       <li><a href="mailto:renee_suis@outlook.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h20v14H2V5zm2 2v.5l8 5 8-5V7H4zm16 3-8 5-8-5v7h16v-7z"/></svg>Email</a></li>
       <li><a href="https://www.linkedin.com/in/renee-zhang-074963323/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3a2 2 0 100 4 2 2 0 000-4zM2 9h4v12H2V9zm7 0h4v2c.7-1.2 2-2.2 4-2.2 3.5 0 5 2 5 5.7V21h-4v-6c0-1.8-.6-3-2.2-3-1.8 0-2.8 1.2-2.8 3v6H9V9z"/></svg>LinkedIn</a></li>
       <li><a href="https://www.instagram.com/reneeeeeee3" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM17.5 6a1 1 0 110 2 1 1 0 010-2z"/></svg>Instagram</a></li>
-      <li><a href="https://reneez.format.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2c1 0 2.5 2.2 3 6H9c.5-3.8 2-6 3-6zM4.3 10H7c.1-1.7.4-3.3.9-4.6A8 8 0 004.3 10zM7 12H4.1a8 8 0 003.8 6.6C7.4 17.3 7.1 15.7 7 12zm2 0c.2 4 1.6 8 3 8s2.8-4 3-8H9zm8 0c-.1 3.7-.4 5.3-.9 6.6A8 8 0 0019.9 12H17zm2.7-2a8 8 0 00-3.6-4.6c.5 1.3.8 2.9.9 4.6h2.7z"/></svg>Portfolio</a></li>
+      <li><a href="https://reneez.format.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2c1 0 2.5 2.2 3 6H9c.5-3.8 2-6 3-6zM4.3 10H7c.1-1.7.4-3.3.9-4.6A8 8 0 004.3 10zM7 12H4.1a8 8 0 003.8 6.6C7.4 17.3 7.1 15.7 7 12zm2 0c.2 4 1.6 8 3 8s2.8-4 3-8H9zm8 0c-.1 3.7-.4 5.3-.9 6.6A8 8 0 0019.9 12H17zm2.7-2a8 8 0 00-3.6-4.6c.5 1.3.8 2.9.9 4.6h2.7z"/></svg>Gallery</a></li> 
     </ul>
   </div>
 </footer>
