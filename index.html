@@ -1,781 +1,642 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Renee Zhang — Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Renee Zhang — UX Research & Visual Design</title>
+<meta name="description" content="Renee Zhang: UX research and visual design with an animation background. Human-centred work, team collaboration, accessibility.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --bg:#FAF3EA; --surface:#FFFCF7; --ink:#2F2722; --muted:#6A5C52; --line:#E6D8C8;
+  --accent:#A64A5C; --soft:#F6DDD0; --dot:#F0A084; --dot2:#8DB5A4;
+  --head:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --body:"Figtree","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:1.1rem/1.7 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,iframe:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--bg);padding:.5rem 1rem;z-index:20}
+.skip:focus{left:8px}
+h1,h2,h3{font-family:var(--head);line-height:1.12;margin:0;letter-spacing:-.01em}
+p{margin:0 0 1em;max-width:62ch}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.5rem}
 
-  :root {
-    --ink: #1a1814;
-    --ink-soft: #5a5650;
-    --ink-faint: #9a9590;
-    --paper: #f7f4ef;
-    --paper-warm: #ede9e2;
-    --accent: #b85c38;
-    --accent-soft: #d4896a;
-    --line: rgba(26,24,20,0.12);
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --mono: 'DM Mono', monospace;
-  }
+header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:64px;flex-wrap:wrap}
+.logo{font:700 1.15rem var(--head);color:var(--ink);text-decoration:none}
+nav ul{list-style:none;display:flex;gap:.25rem;margin:0;padding:0;flex-wrap:wrap}
+nav a{font:500 1rem var(--head);color:var(--muted);text-decoration:none;padding:.5rem .95rem;border-radius:999px;display:block;min-height:44px;line-height:1.75}
+nav a:hover{color:var(--ink);background:var(--soft)}
+nav a[aria-current="page"]{background:var(--soft);color:var(--ink);font-weight:700}
 
-  html { scroll-behavior: smooth; }
+.page{display:none}.page.on{display:block}
+section{padding:4rem 0}
+.hero{padding:4rem 0 3rem}
+.hero .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2rem,4.2vw,3rem);font-weight:700;line-height:1.15;margin-bottom:1.25rem}
+.lead{font-size:1.25rem;color:var(--muted)}
+.btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.75rem}
+.btn{font:600 1rem var(--head);display:inline-block;padding:.7rem 1.3rem;min-height:44px;border-radius:999px;text-decoration:none;border:2px solid var(--ink);color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.primary:hover{background:#8C3B4C;border-color:#8C3B4C;color:#fff}
 
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+/* final scene of imagine, recreated: two big dots shrink into the dots of the two i's */
+.stagebox{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:1.5rem 1rem 1rem;text-align:center}
+.loop{aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:var(--bg);display:flex;align-items:center;justify-content:center}
+.loop video{width:100%;height:100%;object-fit:contain;display:block}
+.ph{color:var(--muted);font:500 1rem var(--head);text-align:center;padding:1rem}
+.cap{display:flex;gap:.75rem;justify-content:space-between;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:.9rem;text-align:left;line-height:1.4}
+.cap button{font:500 .9rem var(--head);min-height:44px;padding:0 1rem;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 2.5rem;
-    background: rgba(247,244,239,0.88);
-    backdrop-filter: blur(8px);
-    border-bottom: 0.5px solid var(--line);
-  }
-  .nav-name {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    color: var(--ink-soft);
-    text-transform: uppercase;
-  }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-decoration: none;
-    color: var(--ink-soft);
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--accent); }
+h2{font-size:clamp(1.7rem,3.5vw,2.3rem);margin-bottom:.6rem}
+.sub{color:var(--muted);margin-bottom:2.5rem}
+.project{border-top:1px solid var(--line);padding:3rem 0;display:grid;grid-template-columns:1fr 1.15fr;gap:2.5rem}
+.project h3{font-size:1.65rem;margin-bottom:.5rem}
+.meta{font:500 .95rem var(--head);color:var(--muted);margin-bottom:1rem}
+.tag{display:inline-block;background:var(--soft);border-radius:999px;padding:.1rem .75rem;font:500 .85rem var(--head);margin:0 .4rem .5rem 0}
+.media{aspect-ratio:16/10;width:100%;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.gallery{display:grid;grid-template-columns:1.15fr .85fr;grid-template-rows:auto 1fr;gap:.6rem;align-items:start}
+.gallery a{display:block;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.gallery a{grid-column:2}
+.gallery a.tall{grid-column:1;grid-row:1/3}
+.gallery img{display:block;width:100%;height:auto}
+.illustration-gallery {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+}
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 2.5rem 5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-bg-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--serif);
-    font-size: clamp(120px, 22vw, 280px);
-    font-weight: 300;
-    font-style: italic;
-    color: transparent;
-    -webkit-text-stroke: 0.5px rgba(26,24,20,0.07);
-    white-space: nowrap;
-    user-select: none;
-    pointer-events: none;
-    letter-spacing: -0.03em;
-  }
-  .hero-tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-  }
-  .hero-name {
-    font-size: clamp(52px, 9vw, 110px);
-    font-weight: 300;
-    line-height: 1.0;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.8rem;
-  }
-  .hero-name em {
-    font-style: italic;
-    color: var(--ink-soft);
-  }
-  .hero-desc {
-    max-width: 520px;
-    font-size: 17px;
-    color: var(--ink-soft);
-    line-height: 1.75;
-    margin-bottom: 2.5rem;
-  }
-  .hero-desc strong { color: var(--ink); font-weight: 400; }
-  .hero-scroll {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
-  .hero-scroll::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 0.5px;
-    background: var(--ink-faint);
-  }
 
-  /* ── SECTION BASE ── */
-  section { padding: 6rem 2.5rem; }
-  .section-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 0.6rem;
-  }
-  .section-title {
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 3rem;
-    letter-spacing: -0.01em;
-  }
-  .divider {
-    width: 100%;
-    height: 0.5px;
-    background: var(--line);
-    margin: 0;
-  }
+.character-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+  align-items: start;
+}
 
-  /* ── ABOUT ── */
-  #about { background: var(--paper-warm); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-    max-width: 900px;
-  }
-  .about-body { font-size: 17px; color: var(--ink-soft); line-height: 1.85; }
-  .about-body p + p { margin-top: 1.2rem; }
-  .about-body strong { color: var(--ink); font-weight: 400; }
-  .about-aside { padding-top: 0.4rem; }
-  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-  .tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: var(--ink-soft);
-    border: 0.5px solid var(--line);
-    padding: 0.3rem 0.75rem;
-    text-transform: uppercase;
-  }
-  .aside-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    margin-top: 1.5rem;
-  }
-  .aside-label:first-child { margin-top: 0; }
+.character-gallery a {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
 
-  /* ── WORK ── */
-  #work { background: var(--paper); }
-  .work-item { margin-bottom: 5rem; }
-  .work-item:last-child { margin-bottom: 0; }
-  .work-meta {
-    display: flex;
-    align-items: baseline;
-    gap: 1.5rem;
-    margin-bottom: 1.2rem;
-  }
-  .work-index {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-faint);
-    letter-spacing: 0.08em;
-  }
-  .work-title {
-    font-size: clamp(22px, 3.5vw, 36px);
-    font-weight: 300;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-  }
-  .work-role {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-  .work-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-  .video-wrap {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    background: var(--paper-warm);
-    border: 0.5px solid var(--line);
-  }
-  .video-wrap iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-  .pdf-wrap {
-    width: 100%;
-    border: 0.5px solid var(--line);
-    background: var(--paper-warm);
-  }
-  .pdf-wrap iframe {
-    width: 100%;
-    height: 480px;
-    border: none;
-    display: block;
-  }
-  .pdf-note {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--ink-faint);
-    letter-spacing: 0.06em;
-    padding: 0.5rem 0.8rem;
-    border-top: 0.5px solid var(--line);
-  }
-  .work-desc { font-size: 16px; color: var(--ink-soft); line-height: 1.8; }
-  .work-desc p + p { margin-top: 1rem; }
-  .work-desc strong { color: var(--ink); font-weight: 400; }
-  .ux-note {
-    margin-top: 1.5rem;
-    padding: 1rem 1.2rem;
-    border-left: 1.5px solid var(--accent-soft);
-    background: rgba(184,92,56,0.04);
-  }
-  .ux-note-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.14em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-  .ux-note p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+.character-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
-  /* ── CASE STUDY ── */
-  #casestudy { background: var(--paper-warm); }
-  .cs-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5px;
-    background: var(--line);
-    border: 0.5px solid var(--line);
-    margin-top: 3rem;
+/* Tablet and mobile */
+@media (max-width: 760px) {
+  .character-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .cs-cell {
-    background: var(--paper-warm);
-    padding: 2rem 1.8rem;
-  }
-  .cs-cell-num {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 0.12em;
-    margin-bottom: 0.5rem;
-  }
-  .cs-cell-title {
-    font-size: 20px;
-    font-weight: 300;
-    margin-bottom: 0.8rem;
-    letter-spacing: -0.01em;
-  }
-  .cs-cell p { font-size: 14px; color: var(--ink-soft); line-height: 1.75; }
-  .cs-cell ul { padding-left: 1rem; }
-  .cs-cell ul li { font-size: 14px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 0.2rem; }
-  .cs-full {
-    grid-column: 1 / -1;
-    background: var(--paper-warm);
-    padding: 2rem 1.8rem;
-    border-top: 0.5px solid var(--line);
-  }
+}
 
-  /* ── CONTACT ── */
-  #contact { background: var(--ink); color: var(--paper); padding: 5rem 2.5rem; }
-  #contact .section-label { color: var(--accent-soft); }
-  #contact .section-title { color: var(--paper); margin-bottom: 2rem; }
-  .contact-links { display: flex; gap: 2rem; flex-wrap: wrap; }
-  .contact-link {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: rgba(247,244,239,0.6);
-    text-decoration: none;
-    text-transform: uppercase;
-    border-bottom: 0.5px solid rgba(247,244,239,0.2);
-    padding-bottom: 0.2rem;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .contact-link:hover { color: var(--paper); border-color: var(--accent-soft); }
-  .contact-note {
-    margin-top: 3rem;
-    font-size: 13px;
-    color: rgba(247,244,239,0.35);
-    font-family: var(--mono);
-    letter-spacing: 0.06em;
-  }
+.illustration-gallery a,
+.illustration-gallery a.tall {
+  grid-column: auto;
+  grid-row: auto;
+}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.more{display:inline-block;margin-top:.3rem}
+.cta{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:2.2rem;display:flex;gap:1.5rem;justify-content:space-between;align-items:center;flex-wrap:wrap}
 
-  /* ── ANIMATIONS ── */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
+.about{display:grid;grid-template-columns:1.4fr 1fr;gap:3.5rem}
+.portrait{display:block;width:100%;max-width:360px;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;border-radius:20px;border:1px solid var(--line);background:var(--surface);margin-bottom:1.1rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.4rem;margin-bottom:1.1rem}
+.card h3{font-size:1.1rem;margin-bottom:.6rem}
+.card ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.4rem}
+.card li{background:var(--soft);border-radius:999px;padding:.1rem .75rem;font:500 .92rem var(--head)}
+.card p{font-size:1rem;margin:0 0 .4rem}
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 680px) {
-    nav { padding: 1rem 1.2rem; }
-    .nav-links { gap: 1rem; }
-    section { padding: 4rem 1.2rem; }
-    #hero { padding: 0 1.2rem 4rem; }
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .work-body { grid-template-columns: 1fr; }
-    .cs-grid { grid-template-columns: 1fr; }
-    .cs-full { grid-column: 1; }
-  }
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.filters button{font:500 .95rem var(--head);padding:.5rem 1rem;min-height:44px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--soft);border-color:var(--accent);font-weight:700}
+.item[hidden]{display:none}
+.view-more-wrap{padding:0 0 2rem}
+.view-more-btn{font:600 1rem var(--head);display:inline-block;padding:.7rem 1.3rem;min-height:44px;border-radius:999px;text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}
+.view-more-btn:hover{background:var(--ink);color:var(--bg)}
+.more-animation[hidden]{display:none}
 
-  /* ── ICONS ── */
-  .icon {
-    display: inline-flex;
-    align-items: center;
-    vertical-align: middle;
-    position: relative;
-    top: -1px;
-  }
-  .icon svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
-  .icon-lg svg { width: 16px; height: 16px; }
-  .work-meta-icons {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.8rem;
-    flex-wrap: wrap;
-  }
-  .work-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: var(--ink-soft);
-    border: 0.5px solid var(--line);
-    padding: 0.25rem 0.6rem;
-    text-transform: uppercase;
-  }
-  .work-badge svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 1.5; }
-  .work-badge.yt { color: var(--accent); border-color: var(--accent-soft); }
-  .social-icons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.2rem;
-  }
-  .social-icon {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--ink-faint);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .social-icon svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
-  .social-icon:hover { color: var(--accent); }
+footer{border-top:1px solid var(--line);padding:2.5rem 0 3rem;color:var(--muted);font-size:1rem}
+footer .wrap{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;align-items:center}
+footer ul{display:flex;gap:.5rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+footer a{display:inline-flex;align-items:center;gap:.4rem;min-height:44px;padding:0 .9rem;border:1.5px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font:500 .95rem var(--head);background:var(--surface)}
+footer a:hover{background:var(--soft)}
+footer svg{width:18px;height:18px;fill:currentColor}
+
+@media (max-width:760px){
+  .hero .grid,.project,.about{grid-template-columns:1fr}
+  section{padding:3rem 0}
+  body{font-size:1.05rem}
+}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <span class="nav-name">Renee Zhang</span>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg-text">Portfolio</div>
-  <div class="hero-tag">UX Research · Visual Design · Animation</div>
-  <h1 class="hero-name">Renee<br><em>Zhang</em></h1>
-  <p style="font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:1.8rem;margin-top:-1.2rem;">Jiaying Zhang</p>
-  <p class="hero-desc">
-    I started in animation, where every decision was visual and every visual was a decision. Now I study UX research, and I'm finding that the two have more in common than I expected. <strong>Understanding people, then designing for them</strong> — that's the thread that connects both.
-  </p>
-  <div class="hero-scroll">Scroll to explore</div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-label">About</div>
-  <div class="about-grid">
-    <div>
-      <h2 class="section-title">Visual storyteller<br><em>practising UX research</em></h2>
-      <div class="about-body">
-        <p>
-          As a designer with an animation background, visual communication is central to how I work. Colour, timing, composition: every choice is made to shape how someone feels. That instinct carries naturally into UX, where visual design remains important, especially in prototyping and communicating ideas to users.
-        </p>
-        <p>
-          What surprised me about UX research is how much of it happens before any design decision is made. I expected to spend most of my time building things. Instead, I spend it asking questions, analysing data, and understanding people. Research is the foundation, not the finishing step.
-        </p>
-        <p>
-          My animation background also gave me something I didn't expect to need: experience collaborating in teams under real constraints. I already know how to divide work sustainably, communicate across roles, and keep a project moving without exhausting the people in it.
-        </p>
-      </div>
-    </div>
-    <div class="about-aside fade-up">
-      <div class="aside-label">Background</div>
-      <div class="tag-list">
-        <span class="tag">Animation</span>
-        <span class="tag">Visual Storytelling</span>
-        <span class="tag">Direction</span>
-        <span class="tag">Production</span>
-        <span class="tag">Storyboarding</span>
-        <span class="tag">Mixed Media</span>
-      </div>
-      <div class="aside-label">Currently learning</div>
-      <div class="tag-list">
-        <span class="tag">UX Research</span>
-        <span class="tag">Information Architecture</span>
-        <span class="tag">HTML / CSS / JS</span>
-        <span class="tag">Mixed Methods Research</span>
-      </div>
-      <div class="aside-label">Tools</div>
-      <div class="tag-list">
-        <span class="tag">After Effects</span>
-        <span class="tag">Blender</span>
-        <span class="tag">Photoshop</span>
-        <span class="tag">Discord</span>
-        <span class="tag">Spreadsheets</span>
-      </div>
-      <div class="aside-label">Find me</div>
-      <div class="social-icons">
-        <a class="social-icon" href="mailto:renee_suis@outlook.com">
-          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Email
-        </a>
-        <a class="social-icon" href="https://www.instagram.com/reneeeeeee3" target="_blank">
-          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          Instagram
-        </a>
-      </div>
-    </div>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#home">Renee Zhang</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#home" data-nav="home">Home</a></li>
+        <li><a href="#about" data-nav="about">About</a></li>
+        <li><a href="#animation" data-nav="animation">Animation &amp; Art</a></li>
+      </ul>
+    </nav>
   </div>
-</section>
+</header>
 
-<div class="divider"></div>
+<main id="main" tabindex="-1">
 
-<!-- WORK -->
-<section id="work">
-  <div class="section-label">Selected Work</div>
-  <h2 class="section-title">Projects</h2>
-  <p style="font-family:var(--mono);font-size:11px;letter-spacing:0.08em;color:var(--ink-faint);margin-top:-2rem;margin-bottom:3rem;">For more personal work, visit <a href="https://reneez.format.com" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:0.5px solid var(--accent-soft);">reneez.format.com</a></p>
-
-  <!-- Work 01 -->
-  <div class="work-item fade-up">
-    <div class="work-meta">
-      <span class="work-index">01</span>
-      <h3 class="work-title"><em>imagine</em></h3>
-    </div>
-    <div class="work-meta-icons">
-      <span class="work-badge yt">
-        <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
-        YouTube
-      </span>
-      <span class="work-badge">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        3:04
-      </span>
-      <span class="work-badge">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        5 members
-      </span>
-    </div>
-    <div class="work-role">Director · Scriptwriter · Producer · Animator</div>
-    <div class="work-body">
-      <div class="video-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/HJWVGS6fEn0?si=7QdQg0AqzgHlDMgB"
-          title="imagine — short animation"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen>
-        </iframe>
-      </div>
+<div class="page" id="p-home">
+  <section class="hero">
+    <div class="wrap grid">
       <div>
-        <div class="work-desc">
-          <p>
-            A story about two dots questioning who they are, shifting between identity, perspective, and the quiet weight of small things, until they discover they are the dots above the two i's in the word <em>imagine</em>.
-          </p>
-          <p>
-            I came up with the concept and wrote the script. The bigger challenge was figuring out how five people could make something together without losing coherence. My solution was an anijam structure: one person, one medium. I built the storyboard and animatic first, giving the team a shared skeleton to work from, then stepped back to let each part breathe.
-          </p>
+        <h1>I design for the world as each person experiences it.</h1>
+        <p class="lead">UX researcher and visual designer with an animation background. I look for the limits people work within, then design to remove them, with teams who see the problem differently than I do.</p>
+        <div class="btns">
+          <a class="btn primary" href="#work">See my UX work</a>
+          <a class="btn" href="mailto:renee_suis@outlook.com">Get in touch</a>
         </div>
-        <div class="ux-note">
-          <div class="ux-note-label">UX Thinking</div>
-          <p>
-            Looking back, directing this film was my first real experience of what UX project work actually feels like: coordinating people across different roles, keeping everyone aligned on a shared goal, and managing a timeline that accounts for real human limits. By the time I started working on group UX projects, I already knew how to communicate across roles, divide work without creating bottlenecks, and recognise when someone needs support before it becomes a problem. That foundation made the transition into UX team workflows much smoother than I expected.
-          </p>
+      </div>
+      <div class="stagebox" id="box">
+        <!-- ============================================================
+             imagine LOOP: REPLACE HERE
+             1. Put your video file in the same folder as index.html (e.g. imagine-loop.mp4).
+             2. Delete the <div class="ph">...</div> line below.
+             3. Remove the comment markers around the <video> tag.
+             Keep muted, loop, playsinline and autoplay so it plays on phones.
+             Describe what happens on screen in aria-label (for screen readers).
+             ============================================================ -->
+       <div class="loop" id="loop">
+  <video
+    id="loopvideo"
+    src="Dream 1.MP4"
+    autoplay
+    muted
+    loop
+    playsinline
+    aria-label="Imagine animation loop."
+  ></video>
+</div>
+        <div class="cap">
+          <span>The last scene of <i>imagine</i></span>
+          <button type="button" id="pause" aria-pressed="false" hidden>Pause animation</button>
         </div>
       </div>
     </div>
+  </section>
+
+  <section style="padding-top:1rem">
+    <div class="wrap">
+      <h2 id="work">Selected work</h2>
+      <p class="sub">Two group UX research projects, plus a team film that taught me how to work across roles.</p>
+
+      <article class="project">
+        <div>
+          <span class="tag">Low-fidelity prototype complete</span><span class="tag">Group project · UX600</span>
+          <h3>YMCA eHub: co-designing an inclusive gaming space</h3>
+          <div class="meta">Participant recruitment · Research team member</div>
+          <p>A human-centred project for Laurier Brantford YMCA: an inclusive gaming hub (eHub) for 18–23-year-olds, designed to help young people feel welcome, build social connection and ease loneliness.</p>
+          <p>We ran co-creation sessions in which 7 participants arranged a paper sandbox room using furniture models and explained their choices. Their feedbacks helped shape our low-fidelity model. We know that 7 sessions is a small sample, so we treat these patterns as direction, not proof.</p>
+          <p>In the mid-fidelity phase, we will upgrade the cardboard model with 3D printing and test it with users.</p>
+          <p>I am responsible for visual communication and for recruiting participants for interviews. By using clear visuals and infographics I present each phase’s results and feedback directly to our client.</p>
+        </div>
+        
+        <div class="gallery">
+          <a href="https://drive.google.com/file/d/1tq6Pp8vzlbZ1XNBXicPpE4ID9fAXkDcG/view" target="_blank" rel="noopener" class="tall"><img src="https://drive.google.com/thumbnail?id=1tq6Pp8vzlbZ1XNBXicPpE4ID9fAXkDcG&amp;sz=w1600" alt="Low-fidelity prototyping for the YMCA eHub project" loading="lazy"><span class="sr">(opens full size in a new tab)</span></a>
+          <a href="https://drive.google.com/file/d/1-Reeu0SlnFm8D4vNpq2gt4APjKENkXgB/view" target="_blank" rel="noopener" class="g2"><img src="https://drive.google.com/thumbnail?id=1-Reeu0SlnFm8D4vNpq2gt4APjKENkXgB&amp;sz=w1600" alt="YMCA eHub co-creation session image 01" loading="lazy"><span class="sr">(opens full size in a new tab)</span></a>
+          <a href="https://drive.google.com/file/d/1oHX4i0RyoRdW-sY5uOWAaaM8EES8IiUI/view" target="_blank" rel="noopener" class="g3"><img src="https://drive.google.com/thumbnail?id=1oHX4i0RyoRdW-sY5uOWAaaM8EES8IiUI&amp;sz=w1600" alt="YMCA eHub co-creation session image 02" loading="lazy"><span class="sr">(opens full size in a new tab)</span></a>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <span class="tag">In progress</span><span class="tag">Group project · UX601</span>
+          <h3>International graduate student experience</h3>
+          <div class="meta">Research team member · Interviewer · Notetaker · Participant analysis</div>
+          <p>A user research project exploring international graduate students' experiences with campus activities and their participation in university life. Our goal is to better understand students' needs, challenges, and motivations when engaging with campus activities.</p>
+          <p>As part of the research team, I contributed to developing the research plan, defining participant groups, identifying recruitment channels, and preparing interview and survey questions. I also participate in user interviews as an interviewer or note-taker, coordinate team activities, organize research materials, and communicate research progress with our client.</p>
+          <p>The project is currently in the interview stage, where we are gathering first-hand insights to better understand the experiences of international graduate students.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="International Graduate Student Experience research (PDF preview)" src="https://drive.google.com/file/d/1WvvEv7yIW4yJe_ZbN71hI398zmARrrUv/preview"></iframe>
+      </article>
+
+      <article class="project">
+        <div>
+          <span class="tag">Team of 5</span><span class="tag">3-min film</span>
+          <h3><i>imagine</i>: directing a team of five</h3>
+          <div class="meta">Director · Scriptwriter · Producer · Animator</div>
+          <p>A three-minute mixed-media animated short created by a five-person team for OCAD University's Studio House course. </p>
+          <p>As Director and Producer, I led the project from the initial idea to the final film, working on the pitch deck, storyboard, animatic, animation, and production schedule. With less than four months to complete the project, I set a realistic scope and chose mixed media to let each team member use their strengths in 3D animation, stop-motion, and frame-by-frame animation.</p>
+          <p>I assigned shots based on each person's skills and interests, coordinated the team's creative direction, tracked progress, and helped resolve disagreements. Together, we successfully completed the film within the stipulated time.</p>
+          <a class="more" href="#animation">More in Animation &amp; Art</a>
+        </div>
+        <iframe class="media" loading="lazy" title="imagine, animated short film" src="https://www.youtube.com/embed/HJWVGS6fEn0" allowfullscreen></iframe>
+      </article>
+
+      <div class="cta">
+        <div><h2 style="font-size:1.5rem;margin:0 0 .3rem">Looking for the animation and art?</h2><p style="margin:0;color:var(--muted)">Animatics, stop-motion, illustration, characters and game visuals.</p></div>
+        <a class="btn primary" href="#animation">Animation &amp; Art</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-about">
+  <section>
+    <div class="wrap">
+      <h1 style="font-size:clamp(2rem,5vw,3rem);margin-bottom:2rem">About</h1>
+      <div class="about">
+        <div>
+          <p>Hi, I'm Renee!</p>
+          <p>I'm a UX researcher and visual designer with a background in experimental animation. My journey into UX began with an interest in how people experience and interpret visual information. Through animation, I learned to think about the audience behind every frame. Now, I bring that same curiosity into understanding users, identifying their needs, and making everyday experiences easier to navigate.</p>
+          <p>I enjoy exploring problems from different perspectives and working with people from different backgrounds and disciplines. I believe good design starts with understanding the people it serves, rather than making assumptions about what they need.</p>
+          <p>With a background that bridges animation and UX, I bring together visual storytelling, research, and creative problem-solving to create thoughtful and accessible experiences.</p>
+        </div>
+        <aside>
+          <!-- TODO: rewrite alt to describe the photo. For reliability, save the photo as images/renee.jpg in your repo and set src="images/renee.jpg". -->
+          <img class="portrait" src="https://drive.google.com/thumbnail?id=1ujRLreNL6uSYVR-bHYog6eDJBgYl_fDZ&amp;sz=w1200" alt="Portrait of Renee Zhang" loading="lazy">
+          <div class="card"><h3>Background</h3><ul><li>Animation</li><li>Visual storytelling</li><li>Direction</li><li>Production</li><li>Storyboarding</li><li>Mixed media</li></ul></div>
+          <div class="card"><h3>Currently learning</h3><ul><li>UX research</li><li>Information architecture</li><li>HTML / CSS / JS</li><li>Mixed-methods research</li></ul></div>
+          <div class="card"><h3>Tools</h3><ul><li>Figma</li><li>Miro</li><li>After Effects</li><li>Blender</li><li>Photoshop</li><li>Spreadsheets</li></ul></div>
+          <div class="card"><h3>Contact</h3>
+            <p><a href="mailto:renee_suis@outlook.com">renee_suis@outlook.com</a></p>
+            <p><a href="https://www.linkedin.com/in/renee-zhang-074963323/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/reneeeeeee3" target="_blank" rel="noopener">Instagram</a></p>
+            <!-- TODO: replace CV_LINK_HERE with your CV link (make sure it is publicly viewable) -->
+            <p style="margin-top:.8rem">
+  <a class="btn primary"
+     href="https://drive.google.com/file/d/1xPSb_Ao8-m-r53lAlJHQhZFC7CAjnpr2/view?usp=sharing"
+     target="_blank"
+     rel="noopener">View my CV</a>
+</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="p-animation">
+  <section>
+    <div class="wrap">
+      <h1 style="font-size:clamp(2rem,5vw,3rem);margin-bottom:.6rem">Animation &amp; Art</h1>
+      <p class="sub">Work where the image has to carry the meaning. More at <a href="https://reneez.format.com" target="_blank" rel="noopener">reneez.format.com</a>.</p>
+
+      <div class="filters" role="group" aria-label="Filter works">
+        <button type="button" aria-pressed="true" data-f="all">All</button>
+        <button type="button" aria-pressed="false" data-f="animation">Animation &amp; animatic</button>
+        <button type="button" aria-pressed="false" data-f="illustration">Illustration</button>
+        <button type="button" aria-pressed="false" data-f="character">Character design</button>
+        <button type="button" aria-pressed="false" data-f="game">Game visuals</button>
+        <button type="button" aria-pressed="false" data-f="cover">Cover design</button>
+      </div>
+
+      <article class="project item" data-cat="animation">
+        <div>
+          <span class="tag">Team of 5</span><span class="tag">3:04</span><span class="tag">2026</span>
+          <h3><i>imagine</i></h3>
+          <div class="meta">Frame by frame · 3D modeling · Stop-motion · Live-action</div>
+          <p>Two dots questioning who they are, shifting between identity, perspective and the quiet weight of small things, until they discover they are the dots above the two i’s in <i>imagine</i>.</p>
+          <p>A three-minute mixed-media animated short created by a five-person team.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="imagine, animated short film" src="https://www.youtube.com/embed/HJWVGS6fEn0" allowfullscreen></iframe>
+      </article>
+
+      <article class="project item" data-cat="animation">
+        <div>
+          <span class="tag">Team of 2</span><span class="tag">8 months</span><span class="tag">2025</span>
+          <h3>Echoes of Elysium</h3>
+          <div class="meta">Co-directed with Venissa Yu · Animated short</div>
+          <p>A story about alcoholism, dreams and chaos.</p>
+          <p>Directed and created by Renee Zhang and Venissa Yu over eight months, in a two-person collaboration.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="Echoes of Elysium, animated short film" src="https://www.youtube.com/embed/1y6RULi5LaA" allowfullscreen></iframe>
+      </article>
+
+      <article class="project item" data-cat="animation">
+        <div>
+          <span class="tag">Solo</span><span class="tag">Loop</span>
+          <h3>Portal</h3>
+          <div class="meta">Trompe-l’œil study · Looping short</div>
+          <p>A street artist on the run, a cop in pursuit. When reality bends like paint on a wall, the chase becomes a game of perception.</p>
+          <p>A short looping animation made to explore trompe-l’œil: images that trick the eye into reading a flat surface as real space.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="Portal, looping animated short" src="https://www.youtube.com/embed/NiEzACtvFiM" allowfullscreen></iframe>
+      </article>
+
+      <div class="view-more-wrap">
+        <button class="view-more-btn" type="button" id="view-more-animation" aria-expanded="false" aria-controls="more-animation">
+          View more
+        </button>
+      </div>
+      <div class="more-animation" id="more-animation" hidden>
+
+      <article class="project item" data-cat="animation">
+        <div>
+          <span class="tag">Solo</span>
+          <h3>Portal 2</h3>
+          <div class="meta">Sequel to Portal</div>
+          <p>A follow-up to Portal, continuing the chase and the play with perception.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="Portal 2, animated short" src="https://www.youtube.com/embed/5gJGjiUW19g" allowfullscreen></iframe>
+      </article>
+
+      <article class="project item" data-cat="animation">
+        <div>
+          <span class="tag">Solo</span>
+          <h3>Endless Bite</h3>
+          <div class="meta">Surreal short</div>
+          <p>A meal that never ends, a plate that never empties. Bite after bite, the mystery deepens. Is it a dream, a curse, or a blessing?</p>
+          <p>A surreal tale of an endless feast.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="Endless Bite, animated short" src="https://www.youtube.com/embed/v1qrVmTJZfk" allowfullscreen></iframe>
+      </article>
+
+      <article class="project item" data-cat="animation">
+        <div>
+          <span class="tag">Solo</span><span class="tag">Stop-motion</span>
+          <h3>Crumbs and Chirps</h3>
+          <div class="meta">Stop-motion</div>
+          <p>A sandwich, a sunny day, and a tiny, hungry guest. Sometimes, the best meals are the ones we share.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="Crumbs and Chirps, stop-motion short" src="https://www.youtube.com/embed/CN1pVUryIqg" allowfullscreen></iframe>
+      </article>
+
+      <article class="project item" data-cat="animation">
+        <div>
+          <span class="tag">Solo</span>
+          <h3>Mark Making</h3>
+          <div class="meta">Mark-making exploration</div>
+          <p>An exploration of mark-making, where simple gestures spark endless creativity.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="Mark Making, animated short" src="https://www.youtube.com/embed/ExYB8Ck8rSg" allowfullscreen></iframe>
+      </article>
+
+      <article class="project item" data-cat="animation">
+        <div>
+          <span class="tag">Solo</span><span class="tag">0:34</span><span class="tag">2022</span>
+          <h3>Healing Rituals</h3>
+          <div class="meta">Stop-motion · Sand animation</div>
+          <p>A wordless meditation on personal rituals (music, stirring coffee, boiling water) rendered in sand, powder, pepper and salt. Impermanence and texture as metaphor for the fragile, sensory nature of self-care.</p>
+          <p>With no narration, the image carries everything. Camera language and composition do the guiding.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="Healing Rituals, stop-motion short" src="https://www.youtube.com/embed/NaKbu-fFv6A" allowfullscreen></iframe>
+      </article>
+
+      <article class="project item" data-cat="game character">
+        <div>
+          <span class="tag">Solo</span>
+          <h3>Simulation game visual design</h3>
+          <div class="meta">Visual design · Character design</div>
+          <p>A visual and character design system for an original simulation game concept.</p>
+          <p>The project focused on building a coherent world through visual language: colour palette, character archetypes, and environmental tone designed to communicate the game's identity at a glance.</p>
+        </div>
+        <iframe class="media" loading="lazy" title="Simulation game visual design (PDF preview)" src="https://drive.google.com/file/d/1oNjYKCHHPFV2xwiHxGCsiEVXCmdOnGAG/preview"></iframe>
+      </article>
+
+
+<article class="project item" data-cat="illustration">
+  <div>
+    <span class="tag">Illustration</span>
+    <h3>Illustration</h3>
+    <div class="meta">Selected illustration works</div>
+    <p>A selection of illustration works.</p>
   </div>
 
-  <!-- Work 02 -->
-  <div class="work-item fade-up">
-    <div class="work-meta">
-      <span class="work-index">02</span>
-      <h3 class="work-title">Healing Rituals</h3>
-    </div>
-    <div class="work-meta-icons">
-      <span class="work-badge yt">
-        <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
-        YouTube
-      </span>
-      <span class="work-badge">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        0:34
-      </span>
-      <span class="work-badge">
-        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Solo
-      </span>
-    </div>
-    <div class="work-role">Stop-Motion · Sand Animation · Complete end-to-end</div>
-    <div class="work-body">
-      <div class="video-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/NaKbu-fFv6A?si=HW67zNKM2XBNwrLd"
-          title="Healing Rituals — stop motion animation"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div>
-        <div class="work-desc">
-          <p>
-            A wordless meditation on personal rituals: tea, music, stirring coffee, boiling water, rendered through sand, powder, pepper, and salt. This was my first complete stop-motion project, developed independently from script to final frame. The material choice was intentional. Impermanence and texture as metaphor for the fragile, sensory nature of self-care. No narration. The image carries everything.
-          </p>
-        </div>
-        <div class="ux-note">
-          <div class="ux-note-label">UX Thinking</div>
-          <p>
-            Making something without words forced me to rely entirely on visual and motion language to guide the viewer. In human-centred design, that same principle applies: a well-designed interface guides users through a task without them having to think about the interface itself. Camera language and visual composition are tools I already use instinctively. Being able to direct attention, signal transitions, and create a sense of pace through purely visual means is something I now see as directly relevant to UX design and prototyping.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="gallery illustration-gallery">
 
-  <!-- Work 03 -->
-  <div class="work-item fade-up">
-    <div class="work-meta">
-      <span class="work-index">03</span>
-      <h3 class="work-title">Simulation Game Visual Design</h3>
-    </div>
-    <div class="work-role">Solo Project · Visual Design · Character Design · World-building</div>
-    <div class="work-body">
-      <div class="pdf-wrap">
-        <iframe
-          src="https://drive.google.com/file/d/1oNjYKCHHPFV2xwiHxGCsiEVXCmdOnGAG/preview"
-          title="Simulation Game Visual Design — PDF"
-          allow="autoplay"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div>
-        <div class="work-desc">
-          <p>
-            A visual and character design system for an original simulation game concept.
-            The project focused on building a coherent world through
-            <strong>visual language</strong>: colour palette, character archetypes, and
-            environmental tone designed to communicate the game's identity at a glance.
-          </p>
-          <p>
-            Working on a game concept meant constantly thinking about the player's experience
-            <strong>: what story do these visuals tell
-            before a single word of text is read?</strong>
-          </p>
-        </div>
-        <div class="ux-note">
-          <div class="ux-note-label">UX Thinking</div>
-          <p>
-            Game design forced me to think about the player's mental model before anything else. What does a character's silhouette communicate before the player reads a single word? What does the colour palette say about the world's tone and rules? These are the same questions UX designers ask about interfaces. This project made me realise that visual communication design and user experience design share a core concern: making meaning legible to the person on the other side.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Work 04 -->
-  <div class="work-item fade-up">
-    <div class="work-meta">
-      <span class="work-index">04</span>
-      <h3 class="work-title">International Graduate Student Experience</h3>
-    </div>
-    <div class="work-meta-icons">
-      <span class="work-badge" style="color:var(--accent);border-color:var(--accent-soft);">In Progress</span>
-      <span class="work-badge">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Group Project
-      </span>
-      <span class="work-badge">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        UX601
-      </span>
-    </div>
-    <div class="work-role">Research Team Member · Interviewer · Notetaker · Participant Analysis</div>
-    <div class="work-body">
-      <div class="pdf-wrap">
-        <iframe
-          src="https://drive.google.com/file/d/1WvvEv7yIW4yJe_ZbN71hI398zmARrrUv/preview"
-          title="UX601 Research Plan — Participant Section"
-          allow="autoplay"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div>
-        <div class="work-desc">
-          <p>
-            A mixed-methods research study exploring international graduate students' experience of ISS events at Laurier's Brantford campus. As a member of the research team and an international graduate student myself, I brought both methodological rigour and firsthand experience to the project.
-          </p>
-          <p>
-            My work in the previous phase focused on participant analysis: defining the research population and segments, setting realistic recruitment targets, mapping multi-channel recruitment paths, and identifying gaps in the sample. In our first client interview, I served as notetaker, documenting the information provided by the client including barriers students face, improvements ISS has made, and relevant data. Before each session, I confirmed informed consent verbally, including permission to record. When participants declined, I switched to manual note-taking.
-          </p>
-        </div>
-        <div class="ux-note">
-          <div class="ux-note-label">UX Thinking</div>
-          <p>
-            Being part of the user group I was researching created both an advantage and a responsibility. I understood the barriers from the inside, but I also had to be careful not to let my own experience speak for everyone. That tension — between empathy and objectivity — is something I now think about in every research context.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Work 05 -->
-  <div class="work-item fade-up">
-    <div class="work-meta">
-      <span class="work-index">05</span>
-      <h3 class="work-title">YMCA Inclusive Esports — Accessibility Research</h3>
-    </div>
-    <div class="work-meta-icons">
-      <span class="work-badge" style="color:var(--accent);border-color:var(--accent-soft);">In Progress</span>
-      <span class="work-badge">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Group Project
-      </span>
-      <span class="work-badge">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        UX600
-      </span>
-    </div>
-    <div class="work-role">Visual Communicator · Research Team Member &nbsp;|&nbsp; Renee · Abraar · Diya · Momin</div>
-    <div class="work-body">
-      <div class="pdf-wrap">
-        <iframe
-          src="https://drive.google.com/file/d/1vnn5ZYEckGDMJU28FnYRL2_miAOHT7qp/preview"
-          title="YMCA Inclusive Esports — Research Plan Canvas"
-          allow="autoplay"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div>
-        <div class="work-desc">
-          <p>
-            A human-centred design project for Laurier Brantford YMCA, focused on building an inclusive esports ecosystem for youth. The Research Plan Canvas shown here represents our team's full understanding of the project at the research phase: the problem space, business outcomes, research methods, stakeholder landscape, timeline, and key assumptions.
-          </p>
-          <p>
-            As visual communicator, I was responsible for the layout, visual hierarchy, colour consistency, and overall style of our deliverables. This project taught me something important about restraint: my instinct is to push visually, but clear research communication requires holding back. The goal is to make the content readable, not impressive.
-          </p>
-        </div>
-        <div class="ux-note">
-          <div class="ux-note-label">UX Thinking</div>
-          <p>
-            Working on a research plan before any design work begins changed how I think about the relationship between research and outcome. Every method we chose, every participant segment we defined, and every assumption we named was a decision that would shape what we could learn and what we could not. A research plan is not just logistics. It is a set of design decisions about knowledge itself.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<div class="divider"></div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label">Get in touch</div>
-  <h2 class="section-title">Renee Zhang</h2>
-  <div class="contact-links">
-    <a class="contact-link" href="mailto:renee_suis@outlook.com">
-      <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5;vertical-align:middle;margin-right:5px;position:relative;top:-1px" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>renee_suis@outlook.com
+    <a href="https://drive.google.com/file/d/1HVYozGpjzrLquczaTeBaT4YWs7wod8qg/view"
+       target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1HVYozGpjzrLquczaTeBaT4YWs7wod8qg&amp;sz=w1600"
+           alt="Illustration work 1" loading="lazy">
     </a>
-    <a class="contact-link" href="https://reneez.format.com" target="_blank">
-      <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5;vertical-align:middle;margin-right:5px;position:relative;top:-1px" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>reneez.format.com
+
+    <a href="https://drive.google.com/file/d/1F21xT-Qt5q66z7GWMPJayUlDiVhjBn9K/view"
+       target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1F21xT-Qt5q66z7GWMPJayUlDiVhjBn9K&amp;sz=w1600"
+           alt="Illustration work 2" loading="lazy">
     </a>
-    <a class="contact-link" href="https://www.instagram.com/reneeeeeee3" target="_blank">
-      <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5;vertical-align:middle;margin-right:5px;position:relative;top:-1px" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram
+
+    <a href="https://drive.google.com/file/d/1wyWMBcGrd9b3yPGdo5QCkAVrt4MajUvW/view"
+       target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1wyWMBcGrd9b3yPGdo5QCkAVrt4MajUvW&amp;sz=w1600"
+           alt="Illustration work 3" loading="lazy">
     </a>
-    <a class="contact-link" href="https://www.linkedin.com/in/renee-zhang-074963323/" target="_blank">
-      <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5;vertical-align:middle;margin-right:5px;position:relative;top:-1px" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"/><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn
+
+    <a href="https://drive.google.com/file/d/1PXuGYwrPeaEAizkX5yM1QmcgIVFBaG7c/view"
+       target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1PXuGYwrPeaEAizkX5yM1QmcgIVFBaG7c&amp;sz=w1600"
+           alt="Illustration work 4" loading="lazy">
     </a>
+
   </div>
-  <p class="contact-note" style="margin-top:1rem; color:rgba(247,244,239,0.4); font-size:12px;">
-    Format site contains additional visual &amp; animation work — no UX framing.
-  </p>
-  <p class="contact-note" style="margin-top:2rem;">Jiaying Zhang &nbsp;·&nbsp; UX Research &amp; Visual Design &nbsp;·&nbsp; 2026</p>
-</section>
+</article>
+    
+<article class="project item" data-cat="character">
+  <div>
+    <span class="tag">Character Design</span>
+    <span class="tag">Selected works</span>
+    <h3>Character Design</h3>
+    <div class="meta">Character development · Visual exploration</div>
+    <p>A collection of character design explorations, focusing on visual identity, personality and storytelling through character appearance.</p>
+  </div>
+
+  <div class="character-gallery">
+
+    <a href="https://drive.google.com/file/d/1oWLXnmEdxFtViv80p8ecllRq5qOnyXfu/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1oWLXnmEdxFtViv80p8ecllRq5qOnyXfu&amp;sz=w1200" alt="Character design work 1" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1wGwCJhf2SuhyBYnXhWZm10qKGQwuDbhg/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1wGwCJhf2SuhyBYnXhWZm10qKGQwuDbhg&amp;sz=w1200" alt="Character design work 2" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1_mOoU58u2euNlw0uu2245y0MYXSer5Zf/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1_mOoU58u2euNlw0uu2245y0MYXSer5Zf&amp;sz=w1200" alt="Character design work 3" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1Sb6B6lV783Fkpl4nz4R1mgRt-TpNaMh9/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1Sb6B6lV783Fkpl4nz4R1mgRt-TpNaMh9&amp;sz=w1200" alt="Character design work 4" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1TP0qJ6yPEpkK2C7HwkQP7iVHTDomQ8oH/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1TP0qJ6yPEpkK2C7HwkQP7iVHTDomQ8oH&amp;sz=w1200" alt="Character design work 5" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1QAy27Ga5bVgN3ZbPvuyMy4_SeUumSV13/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1QAy27Ga5bVgN3ZbPvuyMy4_SeUumSV13&amp;sz=w1200" alt="Character design work 6" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1TaNTNMIGENnXcoy5s0BgBnmd5pXIX02Z/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1TaNTNMIGENnXcoy5s0BgBnmd5pXIX02Z&amp;sz=w1200" alt="Character design work 7" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1ZVBxqD09nWjBECgLuTyTYmylfH5hD_mF/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1ZVBxqD09nWjBECgLuTyTYmylfH5hD_mF&amp;sz=w1200" alt="Character design work 8" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1yGzGfJ5YEBYTIaCsoFsmHBcY5ix_sMkg/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1yGzGfJ5YEBYTIaCsoFsmHBcY5ix_sMkg&amp;sz=w1200" alt="Character design work 9" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1-2KaC0inOhH-sOURnsCl4sdZ_sW4JSdO/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1-2KaC0inOhH-sOURnsCl4sdZ_sW4JSdO&amp;sz=w1200" alt="Character design work 10" loading="lazy">
+    </a>
+
+    <a href="https://drive.google.com/file/d/1EF6qedoxOnZe0mZ00o7G_5QZEUhoL8QX/view" target="_blank" rel="noopener">
+      <img src="https://drive.google.com/thumbnail?id=1EF6qedoxOnZe0mZ00o7G_5QZEUhoL8QX&amp;sz=w1200" alt="Character design work 11" loading="lazy">
+    </a>
+
+  </div>
+</article>
+
+      </div>
+
+      
+
+      <!-- Add more .item articles here with data-cat="illustration", "cover", "character", "game" or "animation" -->
+      <p id="empty" hidden style="color:var(--muted)">Nothing in this category yet. More work is on the way.</p>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Renee Zhang · UX Research &amp; Visual Design · 2026</span>
+    <ul>
+      <li><a href="mailto:renee_suis@outlook.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h20v14H2V5zm2 2v.5l8 5 8-5V7H4zm16 3-8 5-8-5v7h16v-7z"/></svg>Email</a></li>
+      <li><a href="https://www.linkedin.com/in/renee-zhang-074963323/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3a2 2 0 100 4 2 2 0 000-4zM2 9h4v12H2V9zm7 0h4v2c.7-1.2 2-2.2 4-2.2 3.5 0 5 2 5 5.7V21h-4v-6c0-1.8-.6-3-2.2-3-1.8 0-2.8 1.2-2.8 3v6H9V9z"/></svg>LinkedIn</a></li>
+      <li><a href="https://www.instagram.com/reneeeeeee3" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM17.5 6a1 1 0 110 2 1 1 0 010-2z"/></svg>Instagram</a></li>
+      <li><a href="https://reneez.format.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2c1 0 2.5 2.2 3 6H9c.5-3.8 2-6 3-6zM4.3 10H7c.1-1.7.4-3.3.9-4.6A8 8 0 004.3 10zM7 12H4.1a8 8 0 003.8 6.6C7.4 17.3 7.1 15.7 7 12zm2 0c.2 4 1.6 8 3 8s2.8-4 3-8H9zm8 0c-.1 3.7-.4 5.3-.9 6.6A8 8 0 0019.9 12H17zm2.7-2a8 8 0 00-3.6-4.6c.5 1.3.8 2.9.9 4.6h2.7z"/></svg>Portfolio</a></li>
+    </ul>
+  </div>
+</footer>
 
 <script>
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+(function(){
+  var pages=["home","about","animation"],reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var titles={home:"Renee Zhang — UX Research & Visual Design",about:"About — Renee Zhang",animation:"Animation & Art — Renee Zhang"};
+  function show(h){
+    if(pages.indexOf(h)<0)h="home";
+    pages.forEach(function(p){
+      document.getElementById("p-"+p).classList.toggle("on",p===h);
+      var a=document.querySelector('[data-nav="'+p+'"]');
+      if(p===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
     });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    document.title=titles[h];
+    return h;
+  }
+  // Handle internal links in JS so navigation works everywhere (GitHub Pages, previews, iframes)
+  document.addEventListener("click",function(e){
+    var a=e.target.closest('a[href^="#"]');if(!a)return;
+    var h=a.getAttribute("href").slice(1);
+    if(h==="work"){e.preventDefault();show("home");var w=document.getElementById("work");if(w)w.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});return}
+    if(h==="main"){e.preventDefault();document.getElementById("main").focus();return}
+    if(pages.indexOf(h)>-1){
+      e.preventDefault();show(h);window.scrollTo(0,0);
+      try{history.pushState(null,"","#"+h)}catch(x){}
+    }
+  });
+  function fromHash(){var h="home";try{h=(location.hash||"").slice(1)}catch(x){}show(h)}
+  window.addEventListener("popstate",fromHash);window.addEventListener("hashchange",fromHash);fromHash();
+
+  // pause control: appears automatically once the loop <video> is in place
+  var v=document.getElementById("loopvideo"),btn=document.getElementById("pause");
+  if(v){
+    btn.hidden=false;
+    if(reduce){v.removeAttribute("autoplay");v.pause()}
+    btn.textContent=v.paused?"Play animation":"Pause animation";
+    btn.addEventListener("click",function(){
+      if(v.paused){v.play()}else{v.pause()}
+      btn.setAttribute("aria-pressed",v.paused);btn.textContent=v.paused?"Play animation":"Pause animation";
+    });
+  }
+
+  // Show or hide the remaining animation projects.
+  var moreAnimation=document.getElementById("more-animation");
+  var moreAnimationBtn=document.getElementById("view-more-animation");
+  if(moreAnimation && moreAnimationBtn){
+    moreAnimationBtn.addEventListener("click",function(){
+      var expanded=moreAnimationBtn.getAttribute("aria-expanded")==="true";
+      moreAnimation.hidden=expanded;
+      moreAnimationBtn.setAttribute("aria-expanded",String(!expanded));
+      moreAnimationBtn.textContent=expanded?"View more":"Show less";
+    });
+  }
+
+  // filters
+  
+var fb = document.querySelectorAll(".filters button");
+var items = document.querySelectorAll(".item");
+var empty = document.getElementById("empty");
+
+fb.forEach(function(b) {
+  b.addEventListener("click", function() {
+
+    // Update active filter button
+    fb.forEach(function(x) {
+      x.setAttribute("aria-pressed", x === b ? "true" : "false");
+    });
+
+    var f = b.dataset.f;
+    var n = 0;
+    var hasMoreMatch = false;
+
+    // Filter individual projects
+    items.forEach(function(it) {
+      var categories = it.dataset.cat.split(" ");
+      var matches = f === "all" || categories.indexOf(f) > -1;
+
+      it.hidden = !matches;
+
+      if (matches) n++;
+
+      // Check whether a matching project is inside View more
+      if (matches && moreAnimation && moreAnimation.contains(it)) {
+        hasMoreMatch = true;
+      }
+    });
+
+    // Expand View more for Illustration, Game visuals,
+    // and Character design. Keep it collapsed for All
+    // and Animation so the original layout stays intact.
+    if (moreAnimation && moreAnimationBtn) {
+      var shouldExpand =
+        f !== "all" &&
+        f !== "animation" &&
+        hasMoreMatch;
+
+      moreAnimation.hidden = !shouldExpand;
+      moreAnimationBtn.hidden = shouldExpand;
+
+      moreAnimationBtn.setAttribute(
+        "aria-expanded",
+        String(shouldExpand)
+      );
+
+      moreAnimationBtn.textContent =
+        shouldExpand ? "Show less" : "View more";
+    }
+
+    empty.hidden = n > 0;
+
+  });
+});
+
+})();
 </script>
 </body>
 </html>
